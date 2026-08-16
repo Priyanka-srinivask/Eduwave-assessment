@@ -335,6 +335,11 @@ prompt-level and validation layers).
 - SQLite suits a single node; not built for high concurrent write load.
 - The mock provider's phrasing is intentionally simple (deterministic for tests);
   real pedagogical quality depends on the live model.
+- The real-model (Gemini) path is verified only by a single successful live call.
+  Multi-turn pedagogical behavior — including the "reveal the answer only after a
+  real attempt or explicit request" rule, which lives in the prompt and is
+  executed only by the live model (not the mock) — has **not** been verified
+  end-to-end against the live model, and should be checked before relying on it.
 
 **Next three improvements (in priority order)**
 1. **Hybrid retrieval** — add embeddings as a semantic recall layer, keep the
