@@ -1,0 +1,111 @@
+[
+  {
+    "id": "fractions.foundations.01",
+    "title": "Fractions represent equal parts",
+    "content": "In a fraction a/b, b is the number of equal parts in one whole, and a is the number of those parts selected. The denominator tells how many equal parts make the whole; the numerator tells how many are selected.",
+    "keywords": [
+      "numerator",
+      "denominator",
+      "equal parts"
+    ],
+    "common_misconceptions": [
+      "The larger denominator always means the larger fraction.",
+      "The numerator and denominator can be compared independently."
+    ]
+  },
+  {
+    "id": "fractions.equivalent.01",
+    "title": "Equivalent fractions",
+    "content": "Multiplying or dividing the numerator and denominator by the same nonzero number keeps the value of a fraction unchanged. For example, 1/2 and 2/4 name the same quantity.",
+    "keywords": [
+      "equivalent",
+      "simplify",
+      "same value"
+    ],
+    "common_misconceptions": [
+      "Only the numerator should be multiplied.",
+      "Fractions that look different cannot be equal."
+    ]
+  },
+  {
+    "id": "fractions.compare.01",
+    "title": "Compare fractions with the same denominator",
+    "content": "When two fractions have the same denominator, the pieces are the same size. The fraction with the larger numerator contains more of those equal pieces.",
+    "keywords": [
+      "compare",
+      "same denominator",
+      "numerator"
+    ],
+    "common_misconceptions": [
+      "Compare the denominators even when they are equal."
+    ]
+  },
+  {
+    "id": "fractions.compare.02",
+    "title": "Compare using a common denominator",
+    "content": "To compare fractions with different denominators, rewrite them with a shared denominator. Once the denominators match, compare the numerators because the parts are the same size.",
+    "keywords": [
+      "compare",
+      "common denominator",
+      "greater than"
+    ],
+    "common_misconceptions": [
+      "The fraction with the larger numerator is always larger.",
+      "The fraction with the larger denominator is always larger."
+    ]
+  },
+  {
+    "id": "fractions.compare.03",
+    "title": "Compare using benchmark fractions",
+    "content": "Benchmark values such as 0, 1/2, and 1 can help compare fractions. For example, 3/4 is greater than 1/2, while 2/5 is less than 1/2.",
+    "keywords": [
+      "benchmark",
+      "one half",
+      "compare"
+    ],
+    "common_misconceptions": [
+      "Every fraction with numerator 2 is less than 1/2."
+    ]
+  },
+  {
+    "id": "fractions.add.01",
+    "title": "Add fractions with the same denominator",
+    "content": "When adding fractions with the same denominator, add the numerators and keep the denominator because the size of each part does not change.",
+    "keywords": [
+      "add",
+      "same denominator",
+      "sum"
+    ],
+    "common_misconceptions": [
+      "Add both numerators and denominators."
+    ]
+  },
+  {
+    "id": "fractions.add.02",
+    "title": "Add fractions with different denominators",
+    "content": "Before adding fractions with different denominators, rewrite them as equivalent fractions with a common denominator. Then add the numerators and keep the shared denominator.",
+    "keywords": [
+      "add",
+      "different denominators",
+      "common denominator"
+    ],
+    "common_misconceptions": [
+      "Add the denominators directly.",
+      "Use a common numerator instead of a common denominator."
+    ]
+  },
+  {
+    "id": "fractions.visual.01",
+    "title": "Use visual models",
+    "content": "Area models and number lines make the size of fractions visible. The whole must be divided into equal parts, and the compared models must represent wholes of the same size.",
+    "keywords": [
+      "visual model",
+      "number line",
+      "area model"
+    ],
+    "common_misconceptions": [
+      "Unequal pieces can represent the same denominator.",
+      "Wholes of different sizes can be compared directly."
+    ]
+  }
+]

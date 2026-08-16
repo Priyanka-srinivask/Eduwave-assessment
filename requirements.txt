@@ -1,0 +1,18 @@
+# --- Web framework ---
+fastapi==0.115.6          # API framework: routing, validation, OpenAPI docs
+uvicorn[standard]==0.34.0 # ASGI server that runs the FastAPI app
+
+# --- Data validation / config ---
+pydantic==2.10.4          # Validates the structured tutor response contract
+pydantic-settings==2.7.0  # Loads config from environment / .env
+python-dotenv==1.0.1      # Reads the local .env file (dev convenience)
+
+# --- LLM provider (Google Gemini, free tier) ---
+google-generativeai==0.8.3 # Official Gemini SDK; only used by the real provider
+
+# --- HTTP (used by Gemini SDK + for timeouts/retries) ---
+httpx==0.28.1
+
+# --- Testing ---
+pytest==8.3.4
+pytest-asyncio==0.25.0    # Lets pytest run async test functions
