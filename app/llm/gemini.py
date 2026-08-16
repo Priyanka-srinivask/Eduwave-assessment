@@ -58,14 +58,22 @@ class GeminiProvider:
         # Enforce a hard timeout by running the (blocking) SDK call in a thread
         # and abandoning it if it overruns. This guarantees the API route can
         # never hang indefinitely on a slow provider.
-        with concurrent.futures.ThreadPoolExecutor(max_workers=1) as pool:
-            future = pool.submit(self._call, full_prompt)
-            try:
-                response = future.result(timeout=settings.request_timeout_s)
-            except concurrent.futures.TimeoutError as exc:
-                raise ProviderTimeout(
-                    f"Gemini call exceeded {settings.request_timeout_s}s"
-                ) from exc
+        #
+        # NOTE: we manage the executor manually instead of using it as a context
+        # manager. A `with` block calls shutdown(wait=True) on exit, which would
+        # BLOCK on the hung worker thread and defeat the timeout entirely (caught
+        # while testing against a slow live endpoint). shutdown(wait=False) lets
+        # us return immediately; the orphaned thread ends when its call resolves.
+        pool = concurrent.futures.ThreadPoolExecutor(max_workers=1)
+        future = pool.submit(self._call, full_prompt)
+        try:
+            response = future.result(timeout=settings.request_timeout_s)
+        except concurrent.futures.TimeoutError as exc:
+            raise ProviderTimeout(
+                f"Gemini call exceeded {settings.request_timeout_s}s"
+            ) from exc
+        finally:
+            pool.shutdown(wait=False, cancel_futures=True)
 
         text = getattr(response, "text", "") or ""
 
@@ -90,7 +98,11 @@ class GeminiProvider:
             return self._model.generate_content(prompt)
         except Exception as exc:  # noqa: BLE001 - normalise ALL SDK errors
             msg = str(exc).lower()
-            if "429" in msg or "quota" in msg or "rate" in msg:
+            # Use precise phrases: a bare "rate" substring also matches unrelated
+            # words like "migrate" in Google's error URLs (a real false-positive
+            # caught while testing against the live API).
+            if "429" in msg or "quota" in msg or "rate limit" in msg \
+                    or "resource_exhausted" in msg or "resourceexhausted" in msg:
                 raise ProviderRateLimited(str(exc)) from exc
             if "timeout" in msg or "deadline" in msg:
                 raise ProviderTimeout(str(exc)) from exc
