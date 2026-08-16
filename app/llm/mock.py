@@ -57,7 +57,17 @@ class MockProvider:
             return self._result("")
 
         # --- Normal deterministic response ---
-        fractions = _FRACTION_RE.findall(system_prompt + " " + user_prompt)
+        # Prefer fractions from the learner's OWN message; only fall back to the
+        # conversation history if the new message has none (e.g. "I still don't
+        # understand"). We deliberately ignore fractions that appear only in the
+        # retrieved curriculum text, so the mock reasons about the learner's
+        # numbers rather than a lesson example.
+        learner_segment = user_prompt.split("NEW LEARNER MESSAGE:")[-1]
+        fractions = _FRACTION_RE.findall(learner_segment)
+        if not fractions:
+            convo_start = user_prompt.find("CONVERSATION SO FAR:")
+            history_region = user_prompt[convo_start:] if convo_start != -1 else ""
+            fractions = _FRACTION_RE.findall(history_region)
         ids = _ID_RE.findall(user_prompt)  # IDs the orchestrator injected
 
         if fractions:
