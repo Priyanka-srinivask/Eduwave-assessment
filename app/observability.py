@@ -13,6 +13,16 @@ from app.config import settings
 
 logger = logging.getLogger("wavy_tutor")
 
+# Attach a console handler once, so per-turn telemetry is actually visible when
+# running under uvicorn (which configures its own loggers and would otherwise
+# swallow this logger's INFO records). Idempotent: guarded by the handler check.
+if not logger.handlers:
+    _handler = logging.StreamHandler()
+    _handler.setFormatter(logging.Formatter("%(asctime)s [wavy_tutor] %(message)s"))
+    logger.addHandler(_handler)
+    logger.setLevel(logging.INFO)
+    logger.propagate = False  # avoid duplicate lines via the root logger
+
 
 def estimate_cost_usd(prompt_tokens: int | None,
                       completion_tokens: int | None) -> float:
